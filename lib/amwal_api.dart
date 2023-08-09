@@ -30,8 +30,9 @@ class AmwalApi {
       'phoneNumber': phoneNumber,
       'amount': amount,
     };
-    final String result = await _channel.invokeMethod('startPayment', args);
-    return result;
+    final dynamic result = await _channel.invokeMethod('startPayment', args);
+    return result as String;
+
   }
 
   Future<String?> getPlatformVersion() {
@@ -48,6 +49,7 @@ class AmwalApi {
   }
 }
 
+
 class AmwalApiBuilder {
   String _merchantId = "";
   String _countryCode = "";
@@ -63,9 +65,10 @@ class AmwalApiBuilder {
   }
 
   AmwalApi build({required MethodChannel channel}) {
-    if (_merchantId.isEmpty) {
-      throw Exception("Merchant Id has to be provided");
-    }
+    /* if (_merchantId.isEmpty) {
+     throw Exception("Merchant Id has to be provided");
+    }*/
+    
     return AmwalApi._(
       merchantId: _merchantId,
       countryCode: _countryCode,

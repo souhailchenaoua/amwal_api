@@ -21,21 +21,26 @@ class AmwalApiPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
+        result.success("Android ${android.os.Build.VERSION.RELEASE}")
+    } 
+    if (call.method == "startPayment") {
+        val merchantId = call.argument<String>("merchantId")
+        val countryCode = call.argument<String>("countryCode")
+        val phoneNumber = call.argument<String>("phoneNumber")
+        val amount = call.argument<Double>("amount")
+
+        if (merchantId != null && countryCode != null && phoneNumber != null && amount != null) {
+            // Implement the payment logic here
+            result.success("Payment started successfully")
+        } else {
+            result.error("INVALID_ARGUMENTS", "One or more arguments are missing or invalid", null)
+        }
     } else {
-      result.notImplemented()
+        result.notImplemented()
     }
-
-    if (call.method == "startPayment")
-      startPayment((String) call.argument("merchantId"), (String) call.argument("countryCode"), (String) call.argument("phoneNumber"), (String) call.argument("amount"))
-    else{
-      result.notImplemented()
-    }
-  }
-
-  private fun startPayment(merchantId: String, countryCode: String, phoneNumber: String, amount: String) {
-        // Implement the payment logic here
-  }  
+}
+  
+ 
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)

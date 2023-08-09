@@ -27,8 +27,9 @@ class MethodChannelAmwalApi extends AmwalApiPlatform {
     return result;
   }
 
-  //write the function for _adapter
-  
+  //write method channel function for _adapter() method
+    
+
 
   @override
   Future<String?> build(String merchantId, String countryCode, String phoneNumber) async {
