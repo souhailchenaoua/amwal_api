@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   double amount = 100.0;
   AmwalApi amwal = AmwalApi(
       builder: AmwalApiBuilder()
-          .startPayment('merchantId', 'countryCode', 'phoneNumber', 10.0));
+          .startPayment('merchantId', 'countryCode', 'phoneNumber', 0.0));
   String paymentResult = 'Null';
   int count = 0;
 
