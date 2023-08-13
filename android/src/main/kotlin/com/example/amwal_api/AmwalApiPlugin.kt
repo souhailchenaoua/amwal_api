@@ -1,10 +1,13 @@
 package com.example.amwal_api
-import tech.amwal.payment.*
+import android.app.Activity
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import tech.amwal.payment.PaymentSheet
-import tech.amwal.payment.PaymentSheetResult 
-import tech.amwal.payment.dsl.paymentSheet
+import tech.amwal.payment.PaymentSheetResult
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -13,8 +16,9 @@ import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Build.VERSION
 
-class AmwalApiPlugin: FlutterPlugin, MethodCallHandler {
+class AmwalApiPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private lateinit var channel : MethodChannel
+  private lateinit var activity: Activity
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "amwal_api")
@@ -23,22 +27,25 @@ class AmwalApiPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "getPlatformVersion") {
-        result.success("Android ${android.os.Build.VERSION.RELEASE}")
+        result.success("Android ${VERSION.RELEASE}")
     } 
     if (call.method == "startPayment") {
         val merchantId = call.argument<String>("merchantId")
         val countryCode = call.argument<String>("countryCode")
         val phoneNumber = call.argument<String>("phoneNumber")
-        val amount = call.argument<Float>("amount")
+        val amount = call.argument<Double>("amount")
 
         if (merchantId != null && countryCode != null && phoneNumber != null && amount != null) {
-            // call the Android Amwal SDK
-            
-            //Creating a payment sheet with configurations
-            
-          val paymentSheet = PaymentSheet.paymentSheet(merchantId) {
- 
-          }
+
+          //Creating a payment sheet with configurations
+            val builder = PaymentSheet.Config.Builder()
+            builder.countryCode(countryCode)
+            builder.phoneNumber(phoneNumber)
+            val paymentSheet =PaymentSheet(
+                activity = activity,
+                merchantId = merchantId,
+                config = builder.build()
+            )
 
         paymentSheet.show(
             PaymentSheet.Amount(
@@ -46,13 +53,9 @@ class AmwalApiPlugin: FlutterPlugin, MethodCallHandler {
             )
         ) { result: PaymentSheetResult ->
             when (result) {
-                PaymentSheetResult.Canceled -> {
+                PaymentSheetResult.Canceled -> {}
 
-                }
-
-                PaymentSheetResult.Completed -> {
-
-                }
+                PaymentSheetResult.Completed -> {}
 
                 is PaymentSheetResult.Failed -> {}
             }
@@ -72,4 +75,22 @@ class AmwalApiPlugin: FlutterPlugin, MethodCallHandler {
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
   }
+   override fun onAttachedToActivity(@NonNull binding: ActivityPluginBinding) {
+        android.util.Log.d("JustpassmeFlutterPlugin", "onAttachedToActivity")
+        this.activity = binding.activity
+    }
+
+    override fun onDetachedFromActivity() {
+        android.util.Log.d("JustpassmeFlutterPlugin", "onDetachedFromActivity")
+
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        android.util.Log.d("JustpassmeFlutterPlugin", "onDetachedFromActivityForConfigChanges")
+    }
+
+    override fun onReattachedToActivityForConfigChanges(@NonNull binding: ActivityPluginBinding) {
+        android.util.Log.d("JustpassmeFlutterPlugin", "onReattachedToActivityForConfigChanges")
+        this.activity = binding.activity
+    }
 }

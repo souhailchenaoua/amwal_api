@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -30,9 +30,10 @@ android {
         
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
-        implementation "tech.amwal.payment:payment:1.0.0-alpha06"
-        implementation 'androidx.appcompat:appcompat:1.6.0'
-        
+        implementation 'tech.amwal.payment:payment:1.0.0-alpha07'
+        implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+        implementation("androidx.core:core-ktx:1.7.0")
+        implementation("androidx.appcompat:appcompat:1.4.0")
 
     }
 
