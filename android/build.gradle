@@ -25,6 +25,18 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+
+    dependencies {
+        
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+        testImplementation 'org.mockito:mockito-core:5.0.0'
+        implementation "tech.amwal.payment:payment:1.0.0-alpha06"
+        implementation 'androidx.appcompat:appcompat:1.6.0'
+        
+
+    }
+
+
     compileSdkVersion 31
 
     compileOptions {
@@ -45,13 +57,7 @@ android {
         minSdkVersion 16
     }
 
-    dependencies {
-        
-        testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.0.0'
-        implementation "tech.amwal.payment:payment:1.0.0-alpha07"
-
-    }
+    
 
     testOptions {
         unitTests.all {

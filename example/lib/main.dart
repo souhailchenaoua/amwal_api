@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:amwal_api/amwal_api.dart';
+import 'dart:ffi';
 
 void main() {
   runApp(const MyApp());
 }
-
+ 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -19,10 +20,10 @@ class _MyAppState extends State<MyApp> {
   String merchantId = "your_merchant_id_here";
   String countryCode = "+213";
   String phoneNumber = "123456789";
-  double amount = 100.0;
+  Float amount = 100.0 as Float;
   AmwalApi amwal = AmwalApi(
-      builder: AmwalApiBuilder()
-          .startPayment('merchantId', 'countryCode', 'phoneNumber', 0.0));
+      builder: AmwalApiBuilder().startPayment(
+          'merchantId', 'countryCode', 'phoneNumber', 0.0 as Float));
   String paymentResult = 'Null';
   int count = 0;
 

@@ -1,4 +1,5 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'dart:ffi';
 
 import 'amwal_api_method_channel.dart';
 
@@ -23,7 +24,7 @@ abstract class AmwalApiPlatform extends PlatformInterface {
   }
 
 
-  Future<String?> startPayment(String merchantId, String countryCode, String phoneNumber, double amount) {
+  Future<String?> startPayment(String merchantId, String countryCode, String phoneNumber, Float amount) {
     throw UnimplementedError('startPayment() has not been implemented.');
   }
 
