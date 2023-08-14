@@ -1,4 +1,5 @@
 #import "AmwalApiPlugin.h"
+#import <AmwalPayment/AmwalPayment.h>
 
 @implementation AmwalApiPlugin
 
@@ -15,9 +16,23 @@
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
   } else if ([@"startPayment" isEqualToString:call.method]) {
     NSDictionary *arguments = call.arguments;
-    NSString *argumentsString = [NSString stringWithFormat:@"%@", arguments];
-    NSString *resultString = [@"startPayment " stringByAppendingString:argumentsString];
-    result(resultString);
+    NSString *currency = arguments[@"currency"];
+    NSNumber *amount = arguments[@"amount"];
+    NSNumber *vat = arguments[@"vat"];
+    NSString *merchantId = arguments[@"merchantId"];
+
+    AmwalPaymentView *paymentView = [[AmwalPaymentView alloc] initWithCurrency:currency
+                                                                        amount:amount
+                                                                           vat:vat
+                                                                    merchantId:merchantId
+                                                                    completion:^{
+                                                                        // Payment completion block
+                                                                        result(@"Payment completed successfully.");
+                                                                    }];
+
+    // Present the payment view
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootViewController presentViewController:paymentView animated:YES completion:nil];
   } else {
     result(FlutterMethodNotImplemented);
   }

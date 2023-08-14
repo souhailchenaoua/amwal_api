@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "amwal-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amwal-tech/amwal-ios-sdk.git",
+      "state" : {
+        "revision" : "14c4454a1826a23e9858ab5c095ba82590e54b9a",
+        "version" : "1.0.5"
+      }
+    }
+  ],
+  "version" : 2
+}
