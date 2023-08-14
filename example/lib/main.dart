@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:amwal_api/amwal_api.dart';
-import 'dart:ffi';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +19,10 @@ class _MyAppState extends State<MyApp> {
   String merchantId = "your_merchant_id_here";
   String countryCode = "+213";
   String phoneNumber = "123456789";
-  Float amount = 100.0 as Float;
+  double amount = 100.0 ;
   AmwalApi amwal = AmwalApi(
-      builder: AmwalApiBuilder().startPayment(
-          'merchantId', 'countryCode', 'phoneNumber', 0.0 as Float));
+  builder: AmwalApiBuilder().startPayment('merchantId', 'countryCode', 'phoneNumber', 0.0));
+
   String paymentResult = 'Null';
   int count = 0;
 

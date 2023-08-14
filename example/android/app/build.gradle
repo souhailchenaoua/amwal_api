@@ -69,6 +69,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "tech.amwal.payment:payment:1.0.0-alpha07"
-
+    implementation 'tech.amwal.payment:payment:1.0.0-alpha07'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 }

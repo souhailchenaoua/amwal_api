@@ -23,8 +23,7 @@ abstract class AmwalApiPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-
-  Future<String?> startPayment(String merchantId, String countryCode, String phoneNumber, Float amount) {
+  Future<String?> startPayment(String merchantId, String countryCode, String phoneNumber, double amount) {
     throw UnimplementedError('startPayment() has not been implemented.');
   }
 

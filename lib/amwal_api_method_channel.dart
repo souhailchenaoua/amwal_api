@@ -16,8 +16,7 @@ class MethodChannelAmwalApi extends AmwalApiPlatform {
   }
 
   @override
-  Future<String?> startPayment(String merchantId, String countryCode,
-      String phoneNumber, Float amount) async {
+  Future<String?> startPayment(String merchantId, String countryCode, String phoneNumber,double amount) async {
     final Map<String, dynamic> args = <String, dynamic>{
       'merchantId': merchantId,
       'countryCode': countryCode,

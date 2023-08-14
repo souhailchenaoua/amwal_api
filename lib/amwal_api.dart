@@ -7,7 +7,7 @@ class AmwalApi {
   final String merchantId;
   final String countryCode;
   final String phoneNumber;
-  final Float amount;
+  final double amount;
   final MethodChannel _channel;
 
   AmwalApi._({
@@ -27,7 +27,7 @@ class AmwalApi {
   }
 
   Future<String> startPayment(String merchantId, String countryCode,
-      String phoneNumber, Float amount) async {
+      String phoneNumber, double amount) async {
     final Map<String, dynamic> args = <String, dynamic>{
       'merchantId': merchantId,
       'countryCode': countryCode,
@@ -56,11 +56,10 @@ class AmwalApiBuilder {
   String _merchantId = "";
   String _countryCode = "";
   String _phoneNumber = "";
-  //add float value in amount
-  Float _amount = 0.0 as Float;
+  double _amount = 0.0 ;
 
   AmwalApiBuilder startPayment(
-      String merchantId, String countryCode, String phoneNumber, Float amount) {
+      String merchantId, String countryCode, String phoneNumber, double amount) {
     _merchantId = merchantId;
     _countryCode = countryCode;
     _phoneNumber = phoneNumber;
@@ -69,9 +68,9 @@ class AmwalApiBuilder {
   }
 
   AmwalApi build({required MethodChannel channel}) {
-    /* if (_merchantId.isEmpty) {
+    if (_merchantId.isEmpty) {
      throw Exception("Merchant Id has to be provided");
-    }*/
+    }
 
     return AmwalApi._(
       merchantId: _merchantId,
